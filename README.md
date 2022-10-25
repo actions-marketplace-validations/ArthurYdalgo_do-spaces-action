@@ -2,15 +2,15 @@
   
 # DigitalOcean Spaces Action
 
-[![Build](https://github.com/BetaHuhn/do-spaces-action/workflows/Build/badge.svg)](https://github.com/BetaHuhn/do-spaces-action/actions?query=workflow%3ABuild) [![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/BetaHuhn/do-spaces-action/blob/master/LICENSE) ![David](https://img.shields.io/david/betahuhn/do-spaces-action)
-
 Upload directories/files to DigitalOcean Spaces via GitHub Actions.
 
 </div>
 
 ## 👋 Introduction
 
-Use [do-spaces-action](https://github.com/BetaHuhn/do-spaces-action) to deploy a file or directory to your DigitalOcean Space with GitHub Actions. This can be used to host your static site, or as an self-hosted alternative to something like JSDelivr for serving your JS files/library via a CDN. [do-spaces-action](https://github.com/BetaHuhn/do-spaces-action) can also automatically grab the version number from the package.json and use it to host multiple versions at once (more info [below](#versioning)).
+Use [do-spaces-action](https://github.com/ArthurYdalgo/do-spaces-action) to deploy a file or directory to your DigitalOcean Space with GitHub Actions. This can be used to host your static site, or as an self-hosted alternative to something like JSDelivr for serving your JS files/library via a CDN. [do-spaces-action](https://github.com/ArthurYdalgo/do-spaces-action) can also automatically grab the version number from the package.json and use it to host multiple versions at once (more info [below](#versioning)).
+
+<b>⚠️Disclaimer: this action is a fork on a [similar action](https://github.com/BetaHuhn/do-spaces-action) from [BetaHuhn](https://github.com/BetaHuhn)⚠️<b>
 
 ## ⭐ Features
 
@@ -38,7 +38,7 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@master
-      - uses: BetaHuhn/do-spaces-action@v2
+      - uses: ArthurYdalgo/do-spaces-action@v2
         with:
           access_key: ${{ secrets.ACCESS_KEY}}
           secret_key: ${{ secrets.SECRET_KEY }}
@@ -54,20 +54,20 @@ More info on how to specify what files to upload where [below](#%EF%B8%8F-action
 To always use the latest version of the action add the `latest` tag to the action name like this:
 
 ```yml
-uses: BetaHuhn/do-spaces-action@latest
+uses: ArthurYdalgo/do-spaces-action@latest
 ```
 
 If you want to make sure that your workflow doesn't suddenly break when a new major version is released, use the `v2` tag instead (recommended usage):
 
 ```yml
-uses: BetaHuhn/do-spaces-action@v2
+uses: ArthurYdalgo/do-spaces-action@v2
 ```
 
 With the `v2` tag you will always get the latest non-breaking version which will include potential bug fixes in the future. If you use a specific version, make sure to regularly check if a new version is available, or enable Dependabot.
 
 ## ⚙️ Action Inputs
 
-Here are all the inputs [do-spaces-action](https://github.com/BetaHuhn/do-spaces-action) takes:
+Here are all the inputs [do-spaces-action](https://github.com/ArthurYdalgo/do-spaces-action) takes:
 
 | Key | Value | Required | Default |
 | ------------- | ------------- | ------------- | ------------- |
@@ -95,13 +95,13 @@ The `source` input can either point to a single file or to a whole directory whi
 
 ### Output directory
 
-By default [do-spaces-action](https://github.com/BetaHuhn/do-spaces-action) will upload all files to the root of your Space. You can specify a different output directory with the `out_dir` input.
+By default [do-spaces-action](https://github.com/ArthurYdalgo/do-spaces-action) will upload all files to the root of your Space. You can specify a different output directory with the `out_dir` input.
 
 [See example](#custom-output-path)
 
 ### Versioning
 
-[do-spaces-action](https://github.com/BetaHuhn/do-spaces-action) also supports versioning and can detect the current version from your `package.json` and then upload the file/s to a folder with the version as the name. Let's suppose you bump the version of your project from `v2.3.0` to `v2.4.0`. Both versions would remain on your Space, under different paths:
+[do-spaces-action](https://github.com/ArthurYdalgo/do-spaces-action) also supports versioning and can detect the current version from your `package.json` and then upload the file/s to a folder with the version as the name. Let's suppose you bump the version of your project from `v2.3.0` to `v2.4.0`. Both versions would remain on your Space, under different paths:
 
 - `v2.3.0` -> `https://SPACE.fra1.digitaloceanspaces.com/js/v2.3.0/index.min.js`
 - `v2.4.0` -> `https://SPACE.fra1.digitaloceanspaces.com/js/v2.4.0/index.min.js`
@@ -118,7 +118,7 @@ The `versioning` parameter can be set to true/false, or a string representing th
 
 Instead of outputting the normal DigitalOcean domain `https://SPACE.fra1.digitaloceanspaces.com/`, you can also specify your custom CDN domain with `cdn_domain`.
 
-**Note:** `https://SPACE.REGION.digitaloceanspaces.com/` is still used to connect to your Space, [do-spaces-action](https://github.com/BetaHuhn/do-spaces-action) will just use it when logging it and assigning it to the action output variable `output_url`.
+**Note:** `https://SPACE.REGION.digitaloceanspaces.com/` is still used to connect to your Space, [do-spaces-action](https://github.com/ArthurYdalgo/do-spaces-action) will just use it when logging it and assigning it to the action output variable `output_url`.
 
 [See example](#specify-a-custom-cdn-domain)
 
@@ -144,7 +144,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - uses: BetaHuhn/do-spaces-action@v2
+      - uses: ArthurYdalgo/do-spaces-action@v2
         with:
           access_key: ${{ secrets.ACCESS_KEY}}
           secret_key: ${{ secrets.SECRET_KEY }}
@@ -167,7 +167,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - uses: BetaHuhn/do-spaces-action@v2
+      - uses: ArthurYdalgo/do-spaces-action@v2
         with:
           access_key: ${{ secrets.ACCESS_KEY}}
           secret_key: ${{ secrets.SECRET_KEY }}
@@ -191,7 +191,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - uses: BetaHuhn/do-spaces-action@v2
+      - uses: ArthurYdalgo/do-spaces-action@v2
         with:
           access_key: ${{ secrets.ACCESS_KEY}}
           secret_key: ${{ secrets.SECRET_KEY }}
@@ -214,7 +214,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - uses: BetaHuhn/do-spaces-action@v2
+      - uses: ArthurYdalgo/do-spaces-action@v2
         with:
           access_key: ${{ secrets.ACCESS_KEY}}
           secret_key: ${{ secrets.SECRET_KEY }}
@@ -239,7 +239,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - uses: BetaHuhn/do-spaces-action@v2
+      - uses: ArthurYdalgo/do-spaces-action@v2
         with:
           access_key: ${{ secrets.ACCESS_KEY}}
           secret_key: ${{ secrets.SECRET_KEY }}
@@ -251,7 +251,7 @@ jobs:
 
 ### Create deployment on GitHub
 
-[do-spaces-action](https://github.com/BetaHuhn/do-spaces-action) can be perfectly intergrated with Actions like [Create Deployment Status Update](https://github.com/marketplace/actions/create-deployment-status-update) to create a deployment once all files are uploaded:
+[do-spaces-action](https://github.com/ArthurYdalgo/do-spaces-action) can be perfectly intergrated with Actions like [Create Deployment Status Update](https://github.com/marketplace/actions/create-deployment-status-update) to create a deployment once all files are uploaded:
 
 ```yml
 name: Upload to DO Spaces
@@ -271,7 +271,7 @@ jobs:
           description: Uploading files to DO Spaces
           environment: production
 
-      - uses: BetaHuhn/do-spaces-action@v2
+      - uses: ArthurYdalgo/do-spaces-action@v2
         name: upload to spaces
         id: spaces
         with:
@@ -300,11 +300,11 @@ Here's how that will look on your Repo:
 
 ## 📝 To do
 
-Here is what's currently planned for [do-spaces-action](https://github.com/BetaHuhn/do-spaces-action):
+Here is what's currently planned for [do-spaces-action](https://github.com/ArthurYdalgo/do-spaces-action):
 
 - **Different environments:** add the option to change the upload path pased on the environment (staging/production)
 
-If you have an idea, feel free to [open an issue](https://github.com/BetaHuhn/do-spaces-action/issues/new?labels=feature+request&template=feature_request.md)!
+If you have an idea, feel free to [open an issue](https://github.com/ArthurYdalgo/do-spaces-action/issues/new?labels=feature+request&template=feature_request.md)!
 
 ## 💻 Development
 
@@ -318,7 +318,7 @@ The actual source code of this library is in the `src` folder.
 
 ## ❔ About
 
-This project was developed by me ([@betahuhn](https://github.com/BetaHuhn)) in my free time. If you want to support me:
+This project was developed by me ([@betahuhn](https://github.com/ArthurYdalgo)) in my free time. If you want to support me:
 
 [![Donate via PayPal](https://img.shields.io/badge/paypal-donate-009cde.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=394RTSBEEEFEE)
 
